@@ -1,21 +1,23 @@
 package main
 
 import (
-    "fmt" 
-    "strconv" 
+    "fmt"
+    "strconv"
 )
   
-  var str = ""
-type Node struct { 
+  var str = ""  // global variable for print
+
+  // a node consists of its value and its children (Left & Right)
+type Node struct {
     left  *Node
     right *Node
     value  int
 }
-  
+  //Creates a tree structure of nodes
 type Tree struct {
     root *Node
 }
-  
+
 func (t *Tree) insert(val int) *Tree {
     if t.root == nil {
         t.root = &Node{value: val, left: nil, right: nil}
@@ -24,7 +26,7 @@ func (t *Tree) insert(val int) *Tree {
     }
     return t
 }
-  
+
 func (n *Node) insert(val int) {
     if n == nil {
         return
@@ -40,7 +42,7 @@ func (n *Node) insert(val int) {
         }else {
             n.right.insert(val)
         }
-    }   
+    }
 }
 //prints content of tree
 func print( node *Node) string{
@@ -54,7 +56,7 @@ func print( node *Node) string{
 }
 
 
-  
+
 func main() {
     tree := &Tree{}
     tree.insert(10).
