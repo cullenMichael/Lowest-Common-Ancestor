@@ -30,7 +30,6 @@ func find(v1 int, v2 int) []Channel {
 
 	route1 = append(route1, Channel{value: 10})
 	return route1
-
 }
 
 func (t *Tree) insert(val int) *Tree {
