@@ -5,11 +5,36 @@ import (
 	"testing"
 )
 
-func TestPrint(t *testing.T) {
+func TestPrintEmptyTree(t *testing.T) {
 
 	tree := &Tree{}
-	tree.insert(10).
-		insert(5).
+	str := printTree(tree.root)
+	if str != "" {
+		t.Errorf("Wrong answer of Binary Tree, got: %s, wanated:  ", str)
+	} else {
+		fmt.Printf("Binary Tree Works Correctly With 1 Element!\n")
+	}
+}
+
+func TestPrint1Tree(t *testing.T) {
+
+	tree1 := &Tree{}
+	tree1.insert(2)
+	str1 := printTree(tree1.root)
+	if str1 != "2 " {
+		t.Errorf("Wrong answer of Binary Tree, got: %s, wanated: 2 ", str1)
+	} else {
+		fmt.Printf("Binary Tree Works Correctly With No Elements!\n")
+	}
+
+}
+
+func TestPrintFullTree(t *testing.T) {
+
+	tree := &Tree{}
+	tree.insert(10)
+	str := printTree(tree.root)
+	tree.insert(5).
 		insert(-50).
 		insert(-75).
 		insert(80).
@@ -20,7 +45,7 @@ func TestPrint(t *testing.T) {
 		insert(15).
 		insert(75).
 		insert(-10)
-	str := print(tree.root)
+	str = printTree(tree.root)
 
 	if str != "10 5 -50 -75 -10 80 60 30 15 55 75 85 " {
 		t.Errorf("Wrong answer of Binary Tree, got: %s, wnated: 10 5 -50 -75 -10 80 60 30 15 55 75 85 ", str)

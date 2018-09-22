@@ -116,6 +116,14 @@ func (n *Node) insert(val int) {
 	}
 }
 
+func printTree(node *Node) string {
+	str = ""
+	if node == nil {
+		return ""
+	}
+	return print(node)
+}
+
 //prints content of tree
 func print(node *Node) string {
 	if node == nil {
