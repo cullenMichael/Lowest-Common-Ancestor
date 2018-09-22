@@ -3,9 +3,12 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 var str = "" // global variable for print
+var route1 []int
+var route2 []int
 
 // a node consists of its value and its children (Left & Right)
 type Node struct {
@@ -19,17 +22,71 @@ type Tree struct {
 	root *Node
 }
 
-// creates arraylist
-type Channel struct {
-	value int
+func find(t *Tree, v1 int, v2 int) int {
+	route1 = nil
+	route2 = nil
+	return ancestor(t.root, v1, v2)
 }
 
-func find(v1 int, v2 int) []Channel {
+//returns the common ancestor of the two nodes
+func ancestor(root *Node, v1 int, v2 int) int {
 
-	var route1 = []Channel{}
+	if !findPath(root, v1, true) || !findPath(root, v2, false) { // checks if route exists
+		return -1 // error
+	}
 
-	route1 = append(route1, Channel{value: 10})
+	// add code to go through arrays until different
+	return 5 // test purposes
+}
+
+// returns route1 array
+func returnRoute1() []int {
 	return route1
+}
+
+// returns route2 array
+func returnRoute2() []int {
+	return route2
+}
+
+// convers an int[] to string for testing
+func arrayToString(a []int, delim string) string {
+	return strings.Trim(strings.Replace(fmt.Sprint(a), " ", delim, -1), "[]")
+}
+
+//finds the track from the route and populates an array,
+// returns true if a path exists, else false
+func findPath(root *Node, n int, path bool) bool {
+
+	if root == nil {
+		return false
+	}
+	if path {
+		route1 = append(route1, root.value)
+		if root.value == n {
+			return true
+		}
+		if root.left != nil && findPath(root.left, n, path) {
+			return true
+		}
+		if root.right != nil && findPath(root.right, n, path) {
+			return true
+		}
+		route1 = route1[:len(route1)-1]
+	} else {
+		route2 = append(route2, root.value)
+		if root.value == n {
+			return true
+		}
+		if root.left != nil && findPath(root.left, n, path) {
+			return true
+		}
+		if root.right != nil && findPath(root.right, n, path) {
+			return true
+		}
+		route1 = route2[:len(route2)-1]
+	}
+	return false
 }
 
 func (t *Tree) insert(val int) *Tree {
