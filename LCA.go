@@ -34,9 +34,21 @@ func ancestor(root *Node, v1 int, v2 int) int {
 	if !findPath(root, v1, true) || !findPath(root, v2, false) { // checks if route exists
 		return -1 // error
 	}
-	//add to check if the paths are the same
 
-	return 10 // default
+	if len(route1) > len(route2) {
+		for i, _ := range route2 {
+			if route1[i] != route2[i] {
+				return route1[i-1]
+			}
+		}
+	} else {
+		for i, _ := range route1 {
+			if route1[i] != route2[i] {
+				return route1[i-1]
+			}
+		}
+	}
+	return -1 // default
 }
 
 // returns route1 array
