@@ -109,3 +109,26 @@ func TestFind2Elements(t *testing.T) {
 		fmt.Printf("Finding ancestor of -10 & 55 is 10!\n")
 	}
 }
+
+func TestFind1ElementInTree(t *testing.T) {
+
+	tree := &Tree{}
+	tree.insert(10).
+		insert(5).
+		insert(-50).
+		insert(-75).
+		insert(80).
+		insert(60).
+		insert(30).
+		insert(55).
+		insert(85).
+		insert(15).
+		insert(75).
+		insert(-10)
+	f := find(tree, -10, 99)
+	if f != -1 {
+		t.Errorf("Wrong answer %d should be -1", f)
+	} else {
+		fmt.Printf("Finding ancestor of -10 & 99 is -1!\n")
+	}
+}
