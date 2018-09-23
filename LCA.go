@@ -35,7 +35,9 @@ func ancestor(root *Node, v1 int, v2 int) int {
 		return -1 // error
 	}
 
-	if len(route1) > len(route2) {
+	if ((len(route1) == 1) || (len(route2) == 1)){
+		return route1[0] 	//if arrays length is 1 return first position
+	}else if len(route1) > len(route2) {
 		for i, _ := range route2 {
 			if route1[i] != route2[i] {
 				return route1[i-1]
