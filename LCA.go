@@ -34,9 +34,9 @@ func ancestor(root *Node, v1 int, v2 int) int {
 	if !findPath(root, v1, true) || !findPath(root, v2, false) { // checks if route exists
 		return -1 // error
 	}
+	//add to check if the paths are the same
 
-	// add code to go through arrays until different
-	return 5 // test purposes
+	return 10 // default
 }
 
 // returns route1 array
@@ -55,12 +55,13 @@ func arrayToString(a []int, delim string) string {
 }
 
 //finds the track from the route and populates an array,
-// returns true if a path exists, else false
+//returns true if a path exists, else false
 func findPath(root *Node, n int, path bool) bool {
 
 	if root == nil {
 		return false
 	}
+
 	if path {
 		route1 = append(route1, root.value)
 		if root.value == n {
@@ -84,7 +85,7 @@ func findPath(root *Node, n int, path bool) bool {
 		if root.right != nil && findPath(root.right, n, path) {
 			return true
 		}
-		route1 = route2[:len(route2)-1]
+		route2 = route2[:len(route2)-1]
 	}
 	return false
 }

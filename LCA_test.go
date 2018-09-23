@@ -48,7 +48,7 @@ func TestPrintFullTree(t *testing.T) {
 	str = printTree(tree.root)
 
 	if str != "10 5 -50 -75 -10 80 60 30 15 55 75 85 " {
-		t.Errorf("Wrong answer of Binary Tree, got: %s, wnated: 10 5 -50 -75 -10 80 60 30 15 55 75 85 ", str)
+		t.Errorf("Wrong answer of Binary Tree, got: %s, wanted: 10 5 -50 -75 -10 80 60 30 15 55 75 85 ", str)
 	} else {
 		fmt.Printf("Binary Tree Works Correctly!\n")
 	}
@@ -75,14 +75,14 @@ func TestArraylist(t *testing.T) {
 	s1 := arrayToString(r1, ",")
 	s2 := arrayToString(r2, ",")
 
-	if s1 != "10,5,-50,-75,-10,80,60,30" {
-		t.Errorf("Wrong answer %s should be 10,5,-50,-75,-10,80,60,30", s1)
+	if s1 != "10,5,-50,-10" {
+		t.Errorf("Wrong answer %s should be 10,5,-50,-10", s1)
 	} else {
 		fmt.Printf("Arraylist Works Correctly for route1!\n")
 	}
 
-	if s2 != "10,5,-50,-75,-10,80,60,30,15,55" {
-		t.Errorf("Wrong answer %s sould be 10,5,-50,-75,-10,80,60,30,15,55", s2)
+	if s2 != "10,80,60,30,55" {
+		t.Errorf("Wrong answer %s sould be 10,80,60,30,55", s2)
 	} else {
 		fmt.Printf("Arraylist Works Correctly for route2!\n")
 	}
