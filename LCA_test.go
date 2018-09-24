@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-
-
 func TestPrintEmptyTree(t *testing.T) {
 
 	tree := &Tree{}
@@ -144,5 +142,17 @@ func TestFindItself(t *testing.T) {
 		t.Errorf("Wrong answer %d should be 10", f)
 	} else {
 		fmt.Printf("Finding ancestor of 10 & 10 is 10!\n")
+	}
+}
+
+func TestRootAsParent(t *testing.T) {
+
+	tree := &Tree{}
+	tree.insert(10).insert(5).insert(20)
+	f := find(tree, 10, 5)
+	if f != 10 {
+		t.Errorf("Wrong answer %d should be 10", f)
+	} else {
+		fmt.Printf("Finding ancestor of 10 & 5 is 10!\n")
 	}
 }
