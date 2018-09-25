@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -22,35 +23,35 @@ type Tree struct {
 	root *Node
 }
 
-func find(t *Tree, v1 int, v2 int) int {
+func find(t *Tree, v1 int, v2 int) (int, error) {
 	route1 = nil
 	route2 = nil
 	return ancestor(t.root, v1, v2)
 }
 
 //returns the common ancestor of the two nodes
-func ancestor(root *Node, v1 int, v2 int) int {
+func ancestor(root *Node, v1 int, v2 int) (int, error) {
 
 	if !findPath(root, v1, true) || !findPath(root, v2, false) { // checks if route exists
-		return -1 // error
+		return -1, errors.New("No Path Exists!")
 	}
 
-	if ((len(route1) == 1) || (len(route2) == 1)){
-		return route1[0] 	//if arrays length is 1 return first position
-	}else if len(route1) > len(route2) {
+	if (len(route1) == 1) || (len(route2) == 1) {
+		return route1[0], nil //if arrays length is 1 return first position
+	} else if len(route1) > len(route2) {
 		for i, _ := range route2 {
 			if route1[i] != route2[i] {
-				return route1[i-1]
+				return route1[i-1], nil
 			}
 		}
 	} else {
 		for i, _ := range route1 {
 			if route1[i] != route2[i] {
-				return route1[i-1]
+				return route1[i-1], nil
 			}
 		}
 	}
-	return -1 // default
+	return -1, errors.New("No Paths Exist!")
 }
 
 // returns route1 array
@@ -151,18 +152,4 @@ func print(node *Node) string {
 }
 
 func main() {
-	tree := &Tree{}
-	tree.insert(10).
-		insert(5).
-		insert(-50).
-		insert(-75).
-		insert(80).
-		insert(60).
-		insert(30).
-		insert(55).
-		insert(85).
-		insert(15).
-		insert(75).
-		insert(-10)
-	fmt.Printf(print(tree.root))
 }

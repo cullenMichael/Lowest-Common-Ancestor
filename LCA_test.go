@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+//Tests an empty binary Tree
 func TestPrintEmptyTree(t *testing.T) {
 
 	tree := &Tree{}
@@ -16,6 +17,7 @@ func TestPrintEmptyTree(t *testing.T) {
 	}
 }
 
+//Tests a binary tree with 1 element
 func TestPrint1Tree(t *testing.T) {
 
 	tree1 := &Tree{}
@@ -29,6 +31,7 @@ func TestPrint1Tree(t *testing.T) {
 
 }
 
+//Tests that a full binary tree is in order
 func TestPrintFullTree(t *testing.T) {
 
 	tree := &Tree{}
@@ -54,6 +57,7 @@ func TestPrintFullTree(t *testing.T) {
 	}
 }
 
+//Tests that the route arraylist works
 func TestArraylist(t *testing.T) {
 
 	tree := &Tree{}
@@ -87,6 +91,7 @@ func TestArraylist(t *testing.T) {
 	}
 }
 
+//finds ancestor of 2 nodes in the tree
 func TestFind2Elements(t *testing.T) {
 
 	tree := &Tree{}
@@ -102,11 +107,13 @@ func TestFind2Elements(t *testing.T) {
 		insert(15).
 		insert(75).
 		insert(-10)
-	f := find(tree, -10, 55)
-	if f != 10 {
-		t.Errorf("Wrong answer %d should be 10", f)
-	} else {
-		fmt.Printf("Finding ancestor of -10 & 55 is 10!\n")
+	f, e := find(tree, -10, 55)
+	if e != nil {
+		if f != 10 {
+			t.Errorf("Wrong answer %d should be 10", f)
+		} else {
+			fmt.Printf("Finding ancestor of -10 & 55 is 10!\n")
+		}
 	}
 }
 
@@ -125,34 +132,40 @@ func TestFind1ElementInTree(t *testing.T) {
 		insert(15).
 		insert(75).
 		insert(-10)
-	f := find(tree, -10, 99)
-	if f != -1 {
-		t.Errorf("Wrong answer %d should be -1", f)
+	f, e := find(tree, -10, 99)
+	if e.Error() == "" {
+		t.Errorf("Wrong answer %d should be No Paths Exist!", f)
 	} else {
-		fmt.Printf("Finding ancestor of -10 & 99 is -1!\n")
+		fmt.Printf("Ancestor of -10 & 99 expected: No Paths Exist! got: %s\n", e.Error())
 	}
 }
 
+//Tests an ancestor with itself
 func TestFindItself(t *testing.T) {
 
 	tree := &Tree{}
 	tree.insert(10)
-	f := find(tree, 10, 10)
-	if f != 10 {
-		t.Errorf("Wrong answer %d should be 10", f)
-	} else {
-		fmt.Printf("Finding ancestor of 10 & 10 is 10!\n")
+	f, e := find(tree, 10, 10)
+	if e != nil {
+		if f != 10 {
+			t.Errorf("Wrong answer %d should be 10", f)
+		} else {
+			fmt.Printf("Finding ancestor of 10 & 10 is 10!\n")
+		}
 	}
 }
 
+//Tests root as the ancestor
 func TestRootAsParent(t *testing.T) {
 
 	tree := &Tree{}
 	tree.insert(10).insert(5).insert(20)
-	f := find(tree, 10, 5)
-	if f != 10 {
-		t.Errorf("Wrong answer %d should be 10", f)
-	} else {
-		fmt.Printf("Finding ancestor of 10 & 5 is 10!\n")
+	f, e := find(tree, 10, 5)
+	if e != nil {
+		if f != 10 {
+			t.Errorf("Wrong answer %d should be 10", f)
+		} else {
+			fmt.Printf("Finding ancestor of 10 & 5 is 10!\n")
+		}
 	}
 }
