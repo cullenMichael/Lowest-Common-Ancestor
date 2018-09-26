@@ -13,7 +13,7 @@ func TestPrintEmptyTree(t *testing.T) {
 	if str != "" {
 		t.Errorf("Wrong answer of Binary Tree, got: %s, wanted:  ", str)
 	} else {
-		fmt.Printf("Binary Tree Works Correctly With 1 Element!\n")
+		fmt.Printf("Correct! Binary Tree Works With 1 Element!\n")
 	}
 }
 
@@ -26,7 +26,7 @@ func TestPrint1Tree(t *testing.T) {
 	if str1 != "2 " {
 		t.Errorf("Wrong answer of Binary Tree, got: %s, wanted: 2 ", str1)
 	} else {
-		fmt.Printf("Binary Tree Works Correctly With No Elements!\n")
+		fmt.Printf("Correct! Binary Tree Works With No Elements!\n")
 	}
 
 }
@@ -53,7 +53,7 @@ func TestPrintFullTree(t *testing.T) {
 	if str != "10 5 -50 -75 -10 80 60 30 15 55 75 85 " {
 		t.Errorf("Wrong answer of Binary Tree, got: %s, wanted: 10 5 -50 -75 -10 80 60 30 15 55 75 85 ", str)
 	} else {
-		fmt.Printf("Binary Tree Works Correctly!\n")
+		fmt.Printf("Correct! Binary Tree Works with a full Tree\n")
 	}
 }
 
@@ -82,12 +82,12 @@ func TestArraylist(t *testing.T) {
 	if s1 != "10,5,-50,-10" {
 		t.Errorf("Wrong answer %s should be 10,5,-50,-10", s1)
 	} else {
-		fmt.Printf("Arraylist Works Correctly for route1!\n")
+		fmt.Printf("Correct! Arraylist Works for route1!\n")
 	}
 	if s2 != "10,80,60,30,55" {
 		t.Errorf("Wrong answer %s should be 10,80,60,30,55", s2)
 	} else {
-		fmt.Printf("Arraylist Works Correctly for route2!\n")
+		fmt.Printf("Correct! Arraylist Works for route2!\n")
 	}
 }
 
@@ -112,11 +112,12 @@ func TestFind2Elements(t *testing.T) {
 		if f != 10 {
 			t.Errorf("Wrong answer %d should be 10", f)
 		} else {
-			fmt.Printf("Finding ancestor of -10 & 55 is 10!\n")
+			fmt.Printf("Correct! Finding ancestor of -10 & 55 is 10!\n")
 		}
 	}
 }
 
+//Tests an element in the tree and one that is not. returns error
 func TestFind1ElementInTree(t *testing.T) {
 
 	tree := &Tree{}
@@ -136,7 +137,31 @@ func TestFind1ElementInTree(t *testing.T) {
 	if e.Error() == "" {
 		t.Errorf("Wrong answer %d should be No Paths Exist!", f)
 	} else {
-		fmt.Printf("Ancestor of -10 & 99 expected: No Paths Exist! got: %s\n", e.Error())
+		fmt.Printf("Correct! One nodes not in the tree returns: %s\n", e.Error())
+	}
+}
+
+//Searches for no 2 nodes in the tree: returns error
+func TestNoElementInTree(t *testing.T) {
+
+	tree := &Tree{}
+	tree.insert(10).
+		insert(5).
+		insert(-50).
+		insert(-75).
+		insert(80).
+		insert(60).
+		insert(30).
+		insert(55).
+		insert(85).
+		insert(15).
+		insert(75).
+		insert(-10)
+	f, e := find(tree, 98, 99)
+	if e.Error() == "" {
+		t.Errorf("Wrong answer %d should be No Paths Exist!", f)
+	} else {
+		fmt.Printf("Correct! Two nodes not in the tree returns: %s\n", e.Error())
 	}
 }
 
@@ -150,7 +175,7 @@ func TestFindItself(t *testing.T) {
 		if f != 10 {
 			t.Errorf("Wrong answer %d should be 10", f)
 		} else {
-			fmt.Printf("Finding ancestor of 10 & 10 is 10!\n")
+			fmt.Printf("Correct! Finding ancestor of 10 & 10 is 10!\n")
 		}
 	}
 }
@@ -165,7 +190,7 @@ func TestRootAsParent(t *testing.T) {
 		if f != 10 {
 			t.Errorf("Wrong answer %d should be 10", f)
 		} else {
-			fmt.Printf("Finding ancestor of 10 & 5 is 10!\n")
+			fmt.Printf("Correct! Finding ancestor of 10 & 5 is 10!\n")
 		}
 	}
 }
