@@ -91,6 +91,18 @@ func TestArraylist(t *testing.T) {
 	}
 }
 
+//finds route beween to nodes of an empty tree
+func TestFindEmpty(t *testing.T) {
+	tree := &Tree{}
+	f, e := find(tree, 5, 10)
+	if e.Error() == "" {
+		t.Errorf("Wrong answer %d should be No Paths Exist!", f)
+	} else {
+		fmt.Printf("Correct! Search in empty tree returns: %s\n", e.Error())
+	}
+
+}
+
 //finds ancestor of 2 nodes in the tree
 func TestFind2Elements(t *testing.T) {
 
