@@ -37,7 +37,12 @@ func ancestor(root *Node, v1 int, v2 int) (int, error) {
 	}
 
 	if (len(route1) == 1) || (len(route2) == 1) {
-		return route1[0], nil //if arrays length is 1 return first position
+		if route1[0] == route2[0] {
+			return route1[0], errors.New("EEE") //if arrays length is 1 return first position
+		} else {
+			return -1, errors.New("No Paths Exist!")
+		}
+
 	} else if len(route1) > len(route2) {
 		for i, _ := range route2 {
 			if route1[i] != route2[i] {

@@ -105,7 +105,6 @@ func TestFindEmpty(t *testing.T) {
 
 //finds ancestor of 2 nodes in the tree
 func TestFind2Elements(t *testing.T) {
-
 	tree := &Tree{}
 	tree.insert(10).
 		insert(5).
@@ -126,6 +125,18 @@ func TestFind2Elements(t *testing.T) {
 		} else {
 			fmt.Printf("Correct! Finding ancestor of -10 & 55 is 10!\n")
 		}
+	}
+}
+
+//Tests one node in the tree and one not in the tree: returns Error
+func TestFind1Elements(t *testing.T) {
+	tree := &Tree{}
+	tree.insert(10)
+	f, e := find(tree, 10, 55)
+	if e.Error() == "" {
+		t.Errorf("Wrong answer %d should be Error %s", f, e.Error())
+	} else {
+		fmt.Printf("Correct! Error of one node in tree returns: %s!\n", e.Error())
 	}
 }
 
