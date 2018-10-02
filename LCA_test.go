@@ -217,3 +217,18 @@ func TestRootAsParent(t *testing.T) {
 		}
 	}
 }
+
+func TestChildAsparent(t *testing.T) {
+	tree := &Tree{}
+	tree.insert(10).
+		insert(10).
+		insert(10)
+	f, e := find(tree, 10, 10)
+	if e != nil {
+		if f != 10 {
+			t.Errorf("Wrong answer %d should be 10", f)
+		} else {
+			fmt.Printf("Correct! Finding ancestor of 10 & 10 is 10!\n")
+		}
+	}
+}
