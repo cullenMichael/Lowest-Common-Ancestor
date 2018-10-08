@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-//Tests an empty binary Tree
+//Tests print of an empty binary Tree
 func TestPrintEmptyTree(t *testing.T) {
 
 	tree := &Tree{}
