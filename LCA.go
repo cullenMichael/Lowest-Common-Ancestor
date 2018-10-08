@@ -17,9 +17,6 @@ type Node struct {
 	in    []*Node
 	value int
 }
-type Channel struct {
-	node *Node
-}
 
 //Creates a tree structure of nodes
 type Tree struct {
