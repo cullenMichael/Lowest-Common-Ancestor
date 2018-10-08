@@ -35,6 +35,27 @@ func TestPrintDoubleInsert(t *testing.T) {
 	}
 }
 
+func TestPrintAddEdge1way(t *testing.T) {
+
+	tree := &Tree{}
+	addNode(tree, 10)
+	addNode(tree, 1)
+	e := addEdge(tree, 10, 1)
+	if e == nil {
+		str := PrintEdges(tree)
+		if str == "(10 in() out(1 ))    (1 in(10 ) out())    " {
+			fmt.Printf("Correct! DAG Insert Edge Works with 1 pair + 1 edge!\n")
+		} else {
+			t.Errorf("Wrong answer of DAG insert Edge, got: %s, wanted: (10 in() out(1 ))    (1 in(10 ) out()) ", str)
+		}
+	} else {
+		t.Errorf("Error Caused! %s", e.Error())
+	}
+
+}
+
+//
+
 //
 // //Tests print of an empty binary Tree
 // func TestPrintEmptyTree(t *testing.T) {

@@ -13,8 +13,8 @@ var route2 []int
 
 // a node consists of its value and its children (Left & Right)
 type Node struct {
-	out   []*Channel
-	in    []*Channel
+	out   []*Node
+	in    []*Node
 	value int
 }
 type Channel struct {
@@ -43,6 +43,55 @@ func DAGInsertprint(t *Tree) string {
 	var str = ""
 	for _, i := range t.nodes {
 		str = str + strconv.Itoa(i.value) + " "
+	}
+	return str
+}
+
+func addEdge(t *Tree, ind1 int, ind2 int) error {
+
+	var j2 = -1
+	var j1 = -1
+
+	if ind1 == ind2 {
+		return errors.New("Same Node!")
+	}
+
+	for i, in := range t.nodes {
+		if ind1 == in.value {
+			j1 = i
+		}
+		if ind2 == in.value {
+			j2 = i
+		}
+	}
+	if j1 == -1 {
+		return errors.New("Node 1 doesnt Exist!")
+	}
+	if j2 == -1 {
+		return errors.New("Node 2 doesnt Exist!")
+	}
+	t.nodes[j1].out = append(t.nodes[j1].out, t.nodes[j2])
+	t.nodes[j2].in = append(t.nodes[j2].in, t.nodes[j1])
+
+	return nil
+}
+
+func PrintEdges(t *Tree) string {
+
+	var str = ""
+
+	for _, i := range t.nodes {
+
+		str += "("
+		str += strconv.Itoa(i.value) + " in("
+		for _, j := range i.in {
+			str += strconv.Itoa(j.value) + " "
+		}
+		str += ")" + " out("
+		for _, j := range i.out {
+			str += strconv.Itoa(j.value) + " "
+		}
+		str += "))    "
 	}
 	return str
 }
