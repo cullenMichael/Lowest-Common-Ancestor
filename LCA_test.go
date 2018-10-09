@@ -55,6 +55,18 @@ func TestPrintAddEdge1way(t *testing.T) {
 	}
 }
 
+//Test to add edge with a node not in the tree
+func TestEdgeNoNode(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 10)
+	e := addEdge(tree, 10, 1)
+	if e == nil {
+		t.Errorf("Cannot add edge to Non Existant Node!")
+	} else {
+		fmt.Printf("Correct! Detected Node not in Tree! Got: %s\n", e.Error())
+	}
+}
+
 //test to createa cycle between 2 nodes
 func TestCycle2Node(t *testing.T) {
 	tree := &Tree{}
@@ -84,6 +96,27 @@ func TestCycle1Node(t *testing.T) {
 		t.Errorf("Cannot add edge to itself!")
 	} else {
 		fmt.Printf("Correct! Detected Cycle to Itself! Got: %s\n", e.Error())
+	}
+}
+
+func TestCycleTriangle(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 10)
+	addNode(tree, 5)
+	addNode(tree, 1)
+	e := addEdge(tree, 10, 5)
+	if e != nil {
+		t.Errorf("Allowed Connection! Got: %s", e.Error())
+	}
+	q := addEdge(tree, 5, 1)
+	if q != nil {
+		t.Errorf("Allowed Connection! Got: %s", q.Error())
+	}
+	r := addEdge(tree, 1, 10)
+	if r == nil {
+		t.Errorf("Wrong! Creates Cycle! Got: %s", r.Error())
+	} else {
+		fmt.Printf("Correct! Detected Cycle as Triangle! Got: %s\n", r.Error())
 	}
 }
 
