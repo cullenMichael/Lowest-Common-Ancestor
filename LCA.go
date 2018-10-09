@@ -25,6 +25,7 @@ type Tree struct {
 	nodeCount int
 }
 
+//adds a node to the graph
 func addNode(t *Tree, val int) error {
 
 	for _, i := range t.nodes {
@@ -53,7 +54,7 @@ func addEdge(t *Tree, ind1 int, ind2 int) error {
 	var j2 = -1
 	var j1 = -1
 	if ind1 == ind2 {
-		return errors.New("Same Node!")
+		return errors.New("Cant add edge to itself!")
 	}
 	for i, in := range t.nodes {
 		if ind1 == in.value {
@@ -114,6 +115,7 @@ func Cycles(t *Tree) bool {
 	return hit
 }
 
+//helper function of Cycles
 func isCyclicUtil(i int, v []bool, r []bool, t *Tree) bool {
 
 	if r[i] {

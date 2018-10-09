@@ -56,7 +56,7 @@ func TestPrintAddEdge1way(t *testing.T) {
 }
 
 //test to createa cycle between 2 nodes
-func TestPrintAddEdge2way(t *testing.T) {
+func TestCycle2Node(t *testing.T) {
 	tree := &Tree{}
 	addNode(tree, 10)
 	addNode(tree, 1)
@@ -70,8 +70,20 @@ func TestPrintAddEdge2way(t *testing.T) {
 		if q == nil {
 			t.Errorf("Insert Should Create Cycle!")
 		} else {
-			fmt.Printf("Correct! Detected Single Cycle!\n")
+			fmt.Printf("Correct! Detected Single Cycle! Got: %s\n", q.Error())
 		}
+	}
+}
+
+// test if detects cycle of 1 node
+func TestCycle1Node(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 10)
+	e := addEdge(tree, 10, 10)
+	if e == nil {
+		t.Errorf("Cannot add edge to itself!")
+	} else {
+		fmt.Printf("Correct! Detected Cycle to Itself! Got: %s\n", e.Error())
 	}
 }
 
