@@ -64,11 +64,19 @@ func addEdge(t *Tree, ind1 int, ind2 int) error {
 			j2 = i
 		}
 	}
+
 	if j1 == -1 {
 		return errors.New("Node 1 does not Exist!")
 	}
 	if j2 == -1 {
 		return errors.New("Node 2 does not Exist!")
+	}
+
+	for _, j := range t.nodes[j1].out {
+		if j.value == ind2 {
+			return errors.New("Cant have Duplicate Edges!")
+		}
+
 	}
 	t.nodes[j1].out = append(t.nodes[j1].out, t.nodes[j2])
 	t.nodes[j2].in = append(t.nodes[j2].in, t.nodes[j1])

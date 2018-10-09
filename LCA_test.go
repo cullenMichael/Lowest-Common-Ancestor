@@ -55,6 +55,24 @@ func TestPrintAddEdge1way(t *testing.T) {
 	}
 }
 
+//Tests 2 edges in the same direction
+func TestDoubleEdge(t *testing.T) {
+
+	tree := &Tree{}
+	addNode(tree, 10)
+	addNode(tree, 1)
+	e := addEdge(tree, 10, 1)
+	if e != nil {
+		t.Errorf("Allowed Connection! Got: %s", e.Error())
+	}
+	q := addEdge(tree, 10, 1)
+	if q == nil {
+		fmt.Printf("Should Crash as Duplicate Edge! Got: %s\n", q.Error())
+	} else {
+		fmt.Printf("Correct! Detected Duplicate Edges! Got: %s\n", q.Error())
+	}
+}
+
 //Test to add edge with a node not in the tree
 func TestEdgeNoNode(t *testing.T) {
 	tree := &Tree{}
@@ -99,6 +117,7 @@ func TestCycle1Node(t *testing.T) {
 	}
 }
 
+//Tests to see detection of a triangle cycle
 func TestCycleTriangle(t *testing.T) {
 	tree := &Tree{}
 	addNode(tree, 10)
