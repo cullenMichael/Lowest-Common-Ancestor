@@ -60,21 +60,14 @@ func TestPrintAddEdge2way(t *testing.T) {
 	e := addEdge(tree, 10, 1)
 	if e == nil {
 		str := PrintEdges(tree)
-		if str == "(10 in() out(1 ))    (1 in(10 ) out())    " {
-			fmt.Printf("Correct! DAG Insert Edge Works with 1 pair + 2 edges!\n")
-		} else {
+		if str != "(10 in() out(1 ))    (1 in(10 ) out())    " {
 			t.Errorf("Wrong answer of DAG insert Edge, got: %s, wanted: (10 in() out(1 ))    (1 in(10 ) out())  ", str)
 		}
 		q := addEdge(tree, 1, 10)
 		if q == nil {
-			str1 := PrintEdges(tree)
-			if str1 == "(10 in(1 ) out(1 ))    (1 in(10 ) out(10 ))    " {
-				fmt.Printf("Correct! DAG Insert Edge Works with 1 pair + 2 edges!\n")
-			} else {
-				t.Errorf("Wrong answer of DAG insert Edge, got: %s, wanted: (10 in() out(1 ))    (1 in(10 ) out())  ", str1)
-			}
+			t.Errorf("Insert Should Create Cycle!")
 		} else {
-			t.Errorf("Error Caused! %s", e.Error())
+			fmt.Printf("Correct! Detected Single Cycle!\n")
 		}
 	}
 }

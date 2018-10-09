@@ -10,6 +10,7 @@ import (
 var str = "" // global variable for print
 var route1 []int
 var route2 []int
+var index = 0
 
 // a node consists of its value and its children (Left & Right)
 type Node struct {
@@ -20,7 +21,8 @@ type Node struct {
 
 //Creates a tree structure of nodes
 type Tree struct {
-	nodes []*Node
+	nodes     []*Node
+	nodeCount int
 }
 
 func addNode(t *Tree, val int) error {
@@ -32,6 +34,7 @@ func addNode(t *Tree, val int) error {
 		}
 	}
 	t.nodes = append(t.nodes, &Node{value: val, in: nil, out: nil})
+	t.nodeCount++
 	return nil
 }
 
@@ -69,16 +72,18 @@ func addEdge(t *Tree, ind1 int, ind2 int) error {
 	}
 	t.nodes[j1].out = append(t.nodes[j1].out, t.nodes[j2])
 	t.nodes[j2].in = append(t.nodes[j2].in, t.nodes[j1])
-
+	if Cycles(t) {
+		t.nodes[j1].out = t.nodes[j1].out[:len(t.nodes[j1].out)-1]
+		t.nodes[j2].in = t.nodes[j1].in[:len(t.nodes[j1].in)-1]
+		return errors.New("Creates Cycle!")
+	}
 	return nil
 }
 
 func PrintEdges(t *Tree) string {
 
 	var str = ""
-
 	for _, i := range t.nodes {
-
 		str += "("
 		str += strconv.Itoa(i.value) + " in("
 		for _, j := range i.in {
@@ -91,6 +96,48 @@ func PrintEdges(t *Tree) string {
 		str += "))    "
 	}
 	return str
+}
+
+func Cycles(t *Tree) bool {
+
+	visited := make([]bool, t.nodeCount)
+	recStack := make([]bool, t.nodeCount)
+	var hit = false
+
+	for i := 0; i < t.nodeCount-1; i++ {
+		if isCyclicUtil(i, visited, recStack, t) {
+			hit = true
+			break
+		}
+	}
+	return hit
+}
+
+func isCyclicUtil(i int, v []bool, r []bool, t *Tree) bool {
+
+	if r[i] {
+		return true
+	}
+	if v[i] {
+		return false
+	}
+	v[i] = true
+	r[i] = true
+	out := t.nodes[i].out
+
+	for _, j := range out {
+		for q, z := range t.nodes {
+			if z.value == j.value {
+				index = q
+				break
+			}
+		}
+		if isCyclicUtil(index, v, r, t) {
+			return true
+		}
+	}
+	r[i] = false
+	return false
 }
 
 func find(t *Tree, v1 int, v2 int) (int, error) {
