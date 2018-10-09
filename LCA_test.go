@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+//test to print out tree with 4 values
 func TestPrintInsert(t *testing.T) {
 	tree := &Tree{}
 	addNode(tree, 10)
@@ -19,6 +20,7 @@ func TestPrintInsert(t *testing.T) {
 	}
 }
 
+//test to print tree with duplicate values
 func TestPrintDoubleInsert(t *testing.T) {
 	tree := &Tree{}
 	addNode(tree, 10)
@@ -35,8 +37,8 @@ func TestPrintDoubleInsert(t *testing.T) {
 	}
 }
 
+//test to add edge 1 way between 2 nodes
 func TestPrintAddEdge1way(t *testing.T) {
-
 	tree := &Tree{}
 	addNode(tree, 10)
 	addNode(tree, 1)
@@ -53,6 +55,7 @@ func TestPrintAddEdge1way(t *testing.T) {
 	}
 }
 
+//test to createa cycle between 2 nodes
 func TestPrintAddEdge2way(t *testing.T) {
 	tree := &Tree{}
 	addNode(tree, 10)
@@ -71,8 +74,6 @@ func TestPrintAddEdge2way(t *testing.T) {
 		}
 	}
 }
-
-//
 
 //
 // //Tests print of an empty binary Tree

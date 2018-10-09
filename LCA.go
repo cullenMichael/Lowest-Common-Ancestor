@@ -47,15 +47,14 @@ func DAGInsertprint(t *Tree) string {
 	return str
 }
 
+// adds an edge between 2 nodes in the tree
 func addEdge(t *Tree, ind1 int, ind2 int) error {
 
 	var j2 = -1
 	var j1 = -1
-
 	if ind1 == ind2 {
 		return errors.New("Same Node!")
 	}
-
 	for i, in := range t.nodes {
 		if ind1 == in.value {
 			j1 = i
@@ -80,6 +79,7 @@ func addEdge(t *Tree, ind1 int, ind2 int) error {
 	return nil
 }
 
+// prints the edges in and out of a node
 func PrintEdges(t *Tree) string {
 
 	var str = ""
@@ -98,6 +98,7 @@ func PrintEdges(t *Tree) string {
 	return str
 }
 
+// checks for cycles of a tree
 func Cycles(t *Tree) bool {
 
 	visited := make([]bool, t.nodeCount)
