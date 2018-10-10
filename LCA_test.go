@@ -141,29 +141,63 @@ func TestCycleTriangle(t *testing.T) {
 
 //Tests Graph
 func TestGraph(t *testing.T) {
-
 	tree := &Tree{}
 	addNode(tree, 0)
 	addNode(tree, 1)
 	addNode(tree, 2)
 	addNode(tree, 3)
 	addNode(tree, 4)
+	addNode(tree, 5)
 	addEdge(tree, 1, 0)
 	addEdge(tree, 1, 2)
 	addEdge(tree, 1, 4)
 	addEdge(tree, 2, 3)
-	addEdge(tree, 4, 3)
+	addEdge(tree, 4, 5)
+	addEdge(tree, 5, 3)
+	addEdge(tree, 2, 0)
 	var str = ""
 	var str1 = ""
 	gra := CreateGraph(tree)
 	for _, d := range gra {
 		str += strings.Replace(fmt.Sprint(d), " ", str1, -1)
 	}
-	if str == "[1][][1][24][1]" {
+	if str == "[12][][1][25][1][4]" {
 		fmt.Printf("Correct! Graph Created! Got: %s\n", str)
 	} else {
 		t.Errorf("Wrong! Graph should be outputted!")
 	}
+}
+
+//Tests Graph
+func TestRoutes(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 0)
+	addNode(tree, 1)
+	addNode(tree, 2)
+	addNode(tree, 3)
+	addNode(tree, 4)
+	addNode(tree, 5)
+	addEdge(tree, 1, 0)
+	addEdge(tree, 1, 2)
+	addEdge(tree, 1, 4)
+	addEdge(tree, 2, 3)
+	addEdge(tree, 4, 5)
+	addEdge(tree, 5, 3)
+	addEdge(tree, 2, 0)
+
+	find(tree, 0, 3)
+	rt1 := returnRoute1()
+	rt2 := returnRoute2()
+	s1 := arrayToString(rt1, ",")
+	s2 := arrayToString(rt2, ",")
+
+	if s1 != "0,1,1,9223372036854775807,9223372036854775807,9223372036854775807" {
+		t.Errorf("Wrong! Incorrect route1! Got: %s", s1)
+	}
+	if s2 != "9223372036854775807,2,1,0,2,1" {
+		t.Errorf("Wrong! Incorrect route2! Got: %s", s2)
+	}
+	fmt.Printf("Correct! Route1 & Route2 are right!\n")
 
 }
 
