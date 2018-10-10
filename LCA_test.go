@@ -168,7 +168,7 @@ func TestGraph(t *testing.T) {
 	}
 }
 
-//Tests Graph
+//Tests Routing of 2 nodes to every other node
 func TestRoutes(t *testing.T) {
 	tree := &Tree{}
 	addNode(tree, 0)
@@ -198,7 +198,24 @@ func TestRoutes(t *testing.T) {
 		t.Errorf("Wrong! Incorrect route2! Got: %s", s2)
 	}
 	fmt.Printf("Correct! Route1 & Route2 are right!\n")
+}
 
+//Tests Routing to Itself
+func TestRoutesItself(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 0)
+	find(tree, 0, 0)
+	rt1 := returnRoute1()
+	rt2 := returnRoute2()
+	s1 := arrayToString(rt1, ",")
+	s2 := arrayToString(rt2, ",")
+	if s1 != "0" {
+		t.Errorf("Wrong! Incorrect route1! Got: %s", s1)
+	}
+	if s2 != "0" {
+		t.Errorf("Wrong! Incorrect route2! Got: %s", s2)
+	}
+	fmt.Printf("Correct! Route1 & Route2 are right for Same Value!\n")
 }
 
 //
@@ -254,39 +271,7 @@ func TestRoutes(t *testing.T) {
 // 	}
 // }
 //
-// //Tests that the route arraylist works
-// func TestArraylist(t *testing.T) {
-//
-// 	tree := &Tree{}
-// 	tree.insert(10).
-// 		insert(5).
-// 		insert(-50).
-// 		insert(-75).
-// 		insert(80).
-// 		insert(60).
-// 		insert(30).
-// 		insert(55).
-// 		insert(85).
-// 		insert(15).
-// 		insert(75).
-// 		insert(-10)
-// 	find(tree, -10, 55)
-// 	r1 := returnRoute1()
-// 	r2 := returnRoute2()
-// 	s1 := arrayToString(r1, ",")
-// 	s2 := arrayToString(r2, ",")
-//
-// 	if s1 != "10,5,-50,-10" {
-// 		t.Errorf("Wrong answer %s should be 10,5,-50,-10", s1)
-// 	} else {
-// 		fmt.Printf("Correct! Arraylist Works for route1!\n")
-// 	}
-// 	if s2 != "10,80,60,30,55" {
-// 		t.Errorf("Wrong answer %s should be 10,80,60,30,55", s2)
-// 	} else {
-// 		fmt.Printf("Correct! Arraylist Works for route2!\n")
-// 	}
-// }
+
 //
 // //finds route beween to nodes of an empty tree
 // func TestFindEmpty(t *testing.T) {
