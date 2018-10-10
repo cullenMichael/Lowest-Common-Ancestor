@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -57,7 +58,6 @@ func TestPrintAddEdge1way(t *testing.T) {
 
 //Tests 2 edges in the same direction
 func TestDoubleEdge(t *testing.T) {
-
 	tree := &Tree{}
 	addNode(tree, 10)
 	addNode(tree, 1)
@@ -137,6 +137,34 @@ func TestCycleTriangle(t *testing.T) {
 	} else {
 		fmt.Printf("Correct! Detected Cycle as Triangle! Got: %s\n", r.Error())
 	}
+}
+
+//Tests Graph
+func TestGraph(t *testing.T) {
+
+	tree := &Tree{}
+	addNode(tree, 0)
+	addNode(tree, 1)
+	addNode(tree, 2)
+	addNode(tree, 3)
+	addNode(tree, 4)
+	addEdge(tree, 1, 0)
+	addEdge(tree, 1, 2)
+	addEdge(tree, 1, 4)
+	addEdge(tree, 2, 3)
+	addEdge(tree, 4, 3)
+	var str = ""
+	var str1 = ""
+	gra := CreateGraph(tree)
+	for _, d := range gra {
+		str += strings.Replace(fmt.Sprint(d), " ", str1, -1)
+	}
+	if str == "[1][][1][24][1]" {
+		fmt.Printf("Correct! Graph Created! Got: %s\n", str)
+	} else {
+		t.Errorf("Wrong! Graph should be outputted!")
+	}
+
 }
 
 //

@@ -11,6 +11,8 @@ var str = "" // global variable for print
 var route1 []int
 var route2 []int
 var index = 0
+var nCount1 = 0
+var nCount2 = 0
 
 // a node consists of its value and its children (Left & Right)
 type Node struct {
@@ -152,13 +154,29 @@ func isCyclicUtil(i int, v []bool, r []bool, t *Tree) bool {
 }
 
 func find(t *Tree, v1 int, v2 int) (int, error) {
-	route1 = nil
-	route2 = nil
+	route1 = make([]int, t.nodeCount)
+	route2 = make([]int, t.nodeCount)
+	nCount1 = 0
+	nCount2 = 0
+	CreateGraph(t)
+	ancestor(t, v1, v2, 0)
 	return 0, nil
 }
 
+func CreateGraph(t *Tree) [][]int {
+
+	graph := make([][]int, t.nodeCount)
+
+	for i := 0; i < t.nodeCount; i++ {
+		for _, v := range t.nodes[i].in {
+			graph[i] = append(graph[i], v.value)
+		}
+	}
+	return graph
+}
+
 //returns the common ancestor of the two nodes
-func ancestor(root *Node, v1 int, v2 int) (int, error) {
+func ancestor(root *Tree, v1 int, v2 int, i int) (int, error) {
 
 	return -1, errors.New("No Paths Exist!")
 }
