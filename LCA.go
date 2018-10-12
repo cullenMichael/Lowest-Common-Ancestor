@@ -176,22 +176,43 @@ func CreateGraph(t *Tree) [][]int {
 }
 
 //returns the common ancestor of the two nodes
-func ancestor(t *Tree, v1 int, v2 int, g [][]int) (int, error) {
+func ancestor(t *Tree, v1i int, v2i int, g [][]int) (int, error) {
+
+	var v1 = 0
+	var v2 = 0
+
+	for i, j := range t.nodes {
+		route1[i] = math.MaxInt64
+		route2[i] = math.MaxInt64
+		if j.value == v1i {
+			v1 = i
+		}
+		if j.value == v2i {
+			v2 = i
+		}
+	}
+
 	for i := 0; i < t.nodeCount; i++ {
 		route1[i] = math.MaxInt64
 		route2[i] = math.MaxInt64
 	}
 	route1[v1] = 0
 	route2[v2] = 0
-	route1 := getRoute(t, v1, g, 0, route1)
-	route2 := getRoute(t, v2, g, 0, route2)
-	fmt.Printf("%v", route1)
-	fmt.Printf("%v", route2)
+	route1 := getRoute(t, v1i, g, 0, route1)
+	route2 := getRoute(t, v2i, g, 0, route2)
+	fmt.Printf("%v\n", route1)
+	fmt.Printf("%v\n", route2)
 	return -1, errors.New("No Paths Exist!")
 }
 
 //DFS of all the connected nodes
-func getRoute(t *Tree, v1 int, g [][]int, count int, r []int) []int {
+func getRoute(t *Tree, v3 int, g [][]int, count int, r []int) []int {
+	var v1 = 0
+	for j, i := range t.nodes {
+		if i.value == v3 {
+			v1 = j
+		}
+	}
 	arr := g[v1]
 	if r[v1] > count {
 		r[v1] = count

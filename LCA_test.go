@@ -196,8 +196,9 @@ func TestRoutes(t *testing.T) {
 	}
 	if s2 != "9223372036854775807,2,1,0,2,1" {
 		t.Errorf("Wrong! Incorrect route2! Got: %s", s2)
+	} else {
+		fmt.Printf("Correct! Route1 & Route2 are right!\n")
 	}
-	fmt.Printf("Correct! Route1 & Route2 are right!\n")
 }
 
 //Tests Routing to Itself
@@ -218,7 +219,40 @@ func TestRoutesItself(t *testing.T) {
 	fmt.Printf("Correct! Route1 & Route2 are right for Same Value!\n")
 }
 
-//
+//Tests random route nodes
+func TestRoutesRandom(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 10) //0
+	addNode(tree, 21) //1
+	addNode(tree, 42) //2
+	addNode(tree, 13) //3
+	addNode(tree, 64) //4
+	addNode(tree, 5)  //5
+
+	addEdge(tree, 21, 10)
+	addEdge(tree, 21, 42)
+	addEdge(tree, 21, 64)
+	addEdge(tree, 42, 13)
+	addEdge(tree, 64, 5)
+	addEdge(tree, 5, 13)
+	addEdge(tree, 42, 10)
+
+	find(tree, 10, 13)
+
+	rt1 := returnRoute1()
+	rt2 := returnRoute2()
+	s1 := arrayToString(rt1, ",")
+	s2 := arrayToString(rt2, ",")
+
+	if s1 != "0,1,1,9223372036854775807,9223372036854775807,9223372036854775807" {
+		t.Errorf("Wrong! Incorrect route1! Got: %s", s1)
+	}
+	if s2 != "9223372036854775807,2,1,0,2,1" {
+		t.Errorf("Wrong! Incorrect route2! Got: %s", s2)
+	}
+	fmt.Printf("Correct! Route1 & Route2 are right for Random Nodes!\n")
+}
+
 // //Tests print of an empty binary Tree
 // func TestPrintEmptyTree(t *testing.T) {
 //
@@ -230,6 +264,7 @@ func TestRoutesItself(t *testing.T) {
 // 		fmt.Printf("Correct! Binary Tree Works With 1 Element!\n")
 // 	}
 // }
+
 //
 // //Tests a binary tree with 1 element
 // func TestPrint1Tree(t *testing.T) {
