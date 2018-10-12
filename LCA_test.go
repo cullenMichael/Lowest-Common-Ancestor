@@ -228,7 +228,6 @@ func TestRoutesRandom(t *testing.T) {
 	addNode(tree, 13) //3
 	addNode(tree, 64) //4
 	addNode(tree, 5)  //5
-
 	addEdge(tree, 21, 10)
 	addEdge(tree, 21, 42)
 	addEdge(tree, 21, 64)
@@ -236,14 +235,11 @@ func TestRoutesRandom(t *testing.T) {
 	addEdge(tree, 64, 5)
 	addEdge(tree, 5, 13)
 	addEdge(tree, 42, 10)
-
 	find(tree, 10, 13)
-
 	rt1 := returnRoute1()
 	rt2 := returnRoute2()
 	s1 := arrayToString(rt1, ",")
 	s2 := arrayToString(rt2, ",")
-
 	if s1 != "0,1,1,9223372036854775807,9223372036854775807,9223372036854775807" {
 		t.Errorf("Wrong! Incorrect route1! Got: %s", s1)
 	}
@@ -251,6 +247,34 @@ func TestRoutesRandom(t *testing.T) {
 		t.Errorf("Wrong! Incorrect route2! Got: %s", s2)
 	}
 	fmt.Printf("Correct! Route1 & Route2 are right for Random Nodes!\n")
+}
+
+//Tests LCA
+func TestLCA(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 0)
+	addNode(tree, 1)
+	addNode(tree, 2)
+	addNode(tree, 3)
+	addNode(tree, 4)
+	addNode(tree, 5)
+	addEdge(tree, 1, 0)
+	addEdge(tree, 1, 2)
+	addEdge(tree, 1, 4)
+	addEdge(tree, 2, 3)
+	addEdge(tree, 4, 5)
+	addEdge(tree, 5, 3)
+	addEdge(tree, 2, 0)
+	lca, e := find(tree, 0, 3)
+	if e == nil {
+		if lca == 2 {
+			fmt.Printf("Correct! LCA got 2!\n")
+		} else {
+			t.Errorf("Wrong! Incorrect Ancestor! Got: %d", lca)
+		}
+	} else {
+		t.Errorf("Wrong! Error Occoured! Got: %s", e.Error())
+	}
 }
 
 // //Tests print of an empty binary Tree

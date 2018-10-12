@@ -160,8 +160,12 @@ func find(t *Tree, v1 int, v2 int) (int, error) {
 	nCount1 = 0
 	nCount2 = 0
 	CreateGraph(t)
-	ancestor(t, v1, v2, CreateGraph(t))
-	return 0, nil
+	lca, e := ancestor(t, v1, v2, CreateGraph(t))
+	if e == nil {
+		return lca, nil
+	} else {
+		return -1, e
+	}
 }
 
 func CreateGraph(t *Tree) [][]int {
@@ -180,7 +184,6 @@ func ancestor(t *Tree, v1i int, v2i int, g [][]int) (int, error) {
 
 	var v1 = 0
 	var v2 = 0
-
 	for i, j := range t.nodes {
 		route1[i] = math.MaxInt64
 		route2[i] = math.MaxInt64
@@ -191,7 +194,6 @@ func ancestor(t *Tree, v1i int, v2i int, g [][]int) (int, error) {
 			v2 = i
 		}
 	}
-
 	for i := 0; i < t.nodeCount; i++ {
 		route1[i] = math.MaxInt64
 		route2[i] = math.MaxInt64
@@ -200,9 +202,18 @@ func ancestor(t *Tree, v1i int, v2i int, g [][]int) (int, error) {
 	route2[v2] = 0
 	route1 := getRoute(t, v1i, g, 0, route1)
 	route2 := getRoute(t, v2i, g, 0, route2)
-	fmt.Printf("%v\n", route1)
-	fmt.Printf("%v\n", route2)
-	return -1, errors.New("No Paths Exist!")
+	var count = math.MaxInt64
+	var c2 = 0
+	for j, c1 := range route1 {
+		c2 = route2[j]
+		if (c2+c1 < count) && (c2 != 0) && (c1 != 0) && (c1 != math.MaxInt64) && (c2 != math.MaxInt64) {
+			count = c2 + c1
+		}
+	}
+	if count == math.MaxInt64 {
+		return -1, errors.New("No Path Exists!")
+	}
+	return count, nil
 }
 
 //DFS of all the connected nodes
@@ -238,45 +249,6 @@ func returnRoute2() []int {
 // convers an int[] to string for testing
 func arrayToString(a []int, delim string) string {
 	return strings.Trim(strings.Replace(fmt.Sprint(a), " ", delim, -1), "[]")
-}
-
-//finds the track from the route and populates an array,
-//returns true if a path exists, else false
-func findPath(root *Node, n int, path bool) bool {
-
-	return false
-}
-
-func (t *Tree) insert(val int) *Tree {
-	// if t.root == nil {
-	// 	t.root = &Node{value: val, left: nil, right: nil}
-	// } else {
-	// 	t.root.insert(val)
-	// }
-	return t
-}
-
-func (n *Node) insert(val int) {
-
-}
-
-func printTree(node *Node) string {
-	str = ""
-	if node == nil {
-		return ""
-	}
-	return print(node)
-}
-
-//prints content of tree
-func print(node *Node) string {
-	// if node == nil {
-	// 	return " "
-	// }
-	// str = str + strconv.Itoa(node.value) + " "
-	// print(node.left)
-	// print(node.right)
-	return " "
 }
 
 func main() {
