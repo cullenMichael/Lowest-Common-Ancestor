@@ -85,6 +85,18 @@ func TestEdgeNoNode(t *testing.T) {
 	}
 }
 
+//Test to add edge to itself
+func TestEdgeToItself(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 10)
+	e := addEdge(tree, 10, 10)
+	if e == nil {
+		t.Errorf("Cannot add edge to itself!")
+	} else {
+		fmt.Printf("Correct! Detected Edge to iteslf! Got: %s\n", e.Error())
+	}
+}
+
 //test to createa cycle between 2 nodes
 func TestCycle2Node(t *testing.T) {
 	tree := &Tree{}
@@ -297,7 +309,7 @@ func TestLCANotInTree(t *testing.T) {
 	if e == nil {
 		t.Errorf("Wrong! Node 9 not in Tree! Got: %d", lca)
 	} else {
-		fmt.Printf("Correct! Cannot find route with node not in Tree! Got: %s\n", e.Error())
+		fmt.Printf("Correct! Detected find route with node not in Tree! Got: %s\n", e.Error())
 	}
 }
 
@@ -314,7 +326,7 @@ func TestLCANoEdges(t *testing.T) {
 	if e == nil {
 		t.Errorf("Wrong! No Edges in Tree! Got: %d", lca)
 	} else {
-		fmt.Printf("Correct! Cannot find route with no Edges! Got: %s\n", e.Error())
+		fmt.Printf("Correct! Detected find route with no Edges! Got: %s\n", e.Error())
 	}
 }
 
