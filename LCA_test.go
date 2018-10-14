@@ -297,7 +297,24 @@ func TestLCANotInTree(t *testing.T) {
 	if e == nil {
 		t.Errorf("Wrong! Node 9 not in Tree! Got: %d", lca)
 	} else {
-		fmt.Printf("Correct! Cannot find route! Got: %s\n", e.Error())
+		fmt.Printf("Correct! Cannot find route with node not in Tree! Got: %s\n", e.Error())
+	}
+}
+
+//Tests LCA Withno edges
+func TestLCANoEdges(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 0)
+	addNode(tree, 1)
+	addNode(tree, 2)
+	addNode(tree, 3)
+	addNode(tree, 4)
+	addNode(tree, 5)
+	lca, e := find(tree, 0, 5)
+	if e == nil {
+		t.Errorf("Wrong! No Edges in Tree! Got: %d", lca)
+	} else {
+		fmt.Printf("Correct! Cannot find route with no Edges! Got: %s\n", e.Error())
 	}
 }
 
