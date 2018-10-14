@@ -182,8 +182,8 @@ func CreateGraph(t *Tree) [][]int {
 //returns the common ancestor of the two nodes
 func ancestor(t *Tree, v1i int, v2i int, g [][]int) (int, error) {
 
-	var v1 = 0
-	var v2 = 0
+	var v1 = -1
+	var v2 = -1
 	for i, j := range t.nodes {
 		route1[i] = math.MaxInt64
 		route2[i] = math.MaxInt64
@@ -193,6 +193,9 @@ func ancestor(t *Tree, v1i int, v2i int, g [][]int) (int, error) {
 		if j.value == v2i {
 			v2 = i
 		}
+	}
+	if (v1 == -1) || (v2 == -1) {
+		return -1, errors.New("Node does not Exist!")
 	}
 	for i := 0; i < t.nodeCount; i++ {
 		route1[i] = math.MaxInt64

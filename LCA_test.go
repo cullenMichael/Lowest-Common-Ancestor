@@ -277,6 +277,30 @@ func TestLCA(t *testing.T) {
 	}
 }
 
+//Tests LCA With node not in tree
+func TestLCANotInTree(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 0)
+	addNode(tree, 1)
+	addNode(tree, 2)
+	addNode(tree, 3)
+	addNode(tree, 4)
+	addNode(tree, 5)
+	addEdge(tree, 1, 0)
+	addEdge(tree, 1, 2)
+	addEdge(tree, 1, 4)
+	addEdge(tree, 2, 3)
+	addEdge(tree, 4, 5)
+	addEdge(tree, 5, 3)
+	addEdge(tree, 2, 0)
+	lca, e := find(tree, 0, 9)
+	if e == nil {
+		t.Errorf("Wrong! Node 9 not in Tree! Got: %d", lca)
+	} else {
+		fmt.Printf("Correct! Cannot find route! Got: %s\n", e.Error())
+	}
+}
+
 // //Tests print of an empty binary Tree
 // func TestPrintEmptyTree(t *testing.T) {
 //
