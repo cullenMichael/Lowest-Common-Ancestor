@@ -213,24 +213,6 @@ func TestRoutes(t *testing.T) {
 	}
 }
 
-//Tests Routing to Itself
-func TestRoutesItself(t *testing.T) {
-	tree := &Tree{}
-	addNode(tree, 0)
-	find(tree, 0, 0)
-	rt1 := returnRoute1()
-	rt2 := returnRoute2()
-	s1 := arrayToString(rt1, ",")
-	s2 := arrayToString(rt2, ",")
-	if s1 != "0" {
-		t.Errorf("Wrong! Incorrect route1! Got: %s", s1)
-	}
-	if s2 != "0" {
-		t.Errorf("Wrong! Incorrect route2! Got: %s", s2)
-	}
-	fmt.Printf("Correct! Route1 & Route2 are right for Same Value!\n")
-}
-
 //Tests random route nodes
 func TestRoutesRandom(t *testing.T) {
 	tree := &Tree{}
@@ -345,6 +327,30 @@ func TestLCANoEdges(t *testing.T) {
 		t.Errorf("Wrong! No Edges in Tree! Got: %d", lca)
 	} else {
 		fmt.Printf("Correct! Detected find route with no Edges! Got: %s\n", e.Error())
+	}
+}
+
+//Tests LCA With node not in tree
+func TestLCAFindIteslf(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 0)
+	addNode(tree, 1)
+	addNode(tree, 2)
+	addNode(tree, 3)
+	addNode(tree, 4)
+	addNode(tree, 5)
+	addEdge(tree, 1, 0)
+	addEdge(tree, 1, 2)
+	addEdge(tree, 1, 4)
+	addEdge(tree, 2, 3)
+	addEdge(tree, 4, 5)
+	addEdge(tree, 5, 3)
+	addEdge(tree, 2, 0)
+	lca, e := find(tree, 1, 1)
+	if e == nil {
+		t.Errorf("Wrong! Can't call find on the same Node! Got: %d", lca)
+	} else {
+		fmt.Printf("Correct! Detected call find on the same Node! Got: %s\n", e.Error())
 	}
 }
 

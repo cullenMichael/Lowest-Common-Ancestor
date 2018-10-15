@@ -155,6 +155,10 @@ func isCyclicUtil(i int, v []bool, r []bool, t *Tree) bool {
 }
 
 func find(t *Tree, v1 int, v2 int) (int, error) {
+
+	if v1 == v2 {
+		return -1, errors.New("Can't call find on the same Node!")
+	}
 	route1 = make([]int, t.nodeCount)
 	route2 = make([]int, t.nodeCount)
 	nCount1 = 0
