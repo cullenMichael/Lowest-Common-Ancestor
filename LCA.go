@@ -206,17 +206,19 @@ func ancestor(t *Tree, v1i int, v2i int, g [][]int) (int, error) {
 	route1 := getRoute(t, v1i, g, 0, route1)
 	route2 := getRoute(t, v2i, g, 0, route2)
 	var count = math.MaxInt64
-	var c2 = 0
+	var ind = math.MaxInt64
+	var c2 = math.MaxInt64
 	for j, c1 := range route1 {
 		c2 = route2[j]
-		if (c2+c1 < count) && (c2 != 0) && (c1 != 0) && (c1 != math.MaxInt64) && (c2 != math.MaxInt64) {
+		if (c2+c1 < count) && (c1 != math.MaxInt64) && (c2 != math.MaxInt64) {
 			count = c2 + c1
+			ind = j
 		}
 	}
 	if count == math.MaxInt64 {
-		return -1, errors.New("No Path Exists!")
+		return -1, errors.New("No Path Exist!")
 	}
-	return count, nil
+	return ind, nil
 }
 
 //DFS of all the connected nodes

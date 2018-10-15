@@ -289,6 +289,24 @@ func TestLCA(t *testing.T) {
 	}
 }
 
+//Tests LCA Root as Ancestor
+func TestLCARootAncestor(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 0)
+	addNode(tree, 1)
+	addEdge(tree, 0, 1)
+	lca, e := find(tree, 0, 1)
+	if e == nil {
+		if lca == 0 {
+			fmt.Printf("Correct! LCA got 0!\n")
+		} else {
+			t.Errorf("Wrong! Incorrect Ancestor! Got: %d", lca)
+		}
+	} else {
+		t.Errorf("Wrong! Error Occoured! Got: %s", e.Error())
+	}
+}
+
 //Tests LCA With node not in tree
 func TestLCANotInTree(t *testing.T) {
 	tree := &Tree{}
