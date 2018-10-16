@@ -289,6 +289,26 @@ func TestLCARootAncestor(t *testing.T) {
 	}
 }
 
+//Tests LCA With both nodes on the same branch
+func TestLCAFindOnRoute(t *testing.T) {
+	tree := &Tree{}
+	addNode(tree, 0)
+	addNode(tree, 1)
+	addNode(tree, 2)
+	addEdge(tree, 0, 1)
+	addEdge(tree, 1, 2)
+	lca, e := find(tree, 0, 2)
+	if e == nil {
+		if lca == 0 {
+			fmt.Printf("Correct! LCA got 0!\n")
+		} else {
+			t.Errorf("Wrong! Incorrect Answer Should be: 0! Got: %d", lca)
+		}
+	} else {
+		t.Errorf("Wrong! Error Occured! Got: %s", e.Error())
+	}
+}
+
 //Tests LCA With node not in tree
 func TestLCANotInTree(t *testing.T) {
 	tree := &Tree{}
